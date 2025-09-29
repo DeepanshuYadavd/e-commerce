@@ -2,6 +2,7 @@ import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import Lottie from "lottie-react";
 import register from "../../Lottie/register.json";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
   const [seen, setSeen] = useState(false);
@@ -28,7 +29,7 @@ const Signin = () => {
 
   return (
     <div className="flex items-center justify-center p-5 h-[80vh]">
-      <div className=" flex rounded-lg p-2 shadow-xl shadow-blue-400 ">
+      <div className=" flex rounded-lg p-2 shadow-xl shadow-blue-400">
         <div className="left">
           <Lottie
             animationData={register}
@@ -36,10 +37,12 @@ const Signin = () => {
             className="h-[18rem] w-[18rem]"
           />
         </div>
-        <div className="rounded-lg p-5 border-l-2 border-blue-400 ">
-          <h1 className="mb-5">Welcome Back, Signin Here to Continue</h1>
+        <div className=" p-5 border-l-1 border-blue-400 ">
+          <h1 className="mb-5 font-serif ">
+            Welcome Back, Signin Here to Continue
+          </h1>
           <form
-            className="flex flex-col gap-5"
+            className="flex flex-col gap-4 items-center"
             onSubmit={(e) => handleSubmit(e)}
           >
             <div className="flex items-center  gap-12">
@@ -75,12 +78,18 @@ const Signin = () => {
               )}
             </div>
             <button
-              className="px-3 py-1 border-1 border-purple-500 rounded-2xl bg-gradient-to-b from-purple-400 to-blue-300  cursor-pointer"
+              className="px-5 py-1 border-1 border-purple-500 rounded-lg bg-gradient-to-b from-purple-400 to-blue-300  cursor-pointer min-w-[12rem]"
               type="submit"
             >
               {" "}
               Signin
             </button>
+            <p className="text-[12px]">
+              Don't Have Account?{" "}
+              <Link className="text-blue-400 cursor-pointer" to="/signup">
+                Signup
+              </Link>
+            </p>
           </form>
         </div>
       </div>

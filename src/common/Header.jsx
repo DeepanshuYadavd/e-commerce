@@ -80,7 +80,7 @@ const Header = () => {
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="[&>svg]:hidden cursor-pointer">
-                Home
+                <Link to="/">Home</Link>
               </NavigationMenuTrigger>
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -124,7 +124,7 @@ const Header = () => {
                       </Link>
                     </NavigationMenuLink>
                     <NavigationMenuLink asChild>
-                      <Link to="#" className="flex-row items-center gap-2">
+                      <Link to="signup" className="flex-row items-center gap-2">
                         <UserCheck />
                         SignUp
                       </Link>
