@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Lottie from "lottie-react";
 import signup from "../../Lottie/signup.json";
 import { Link } from "react-router-dom";
+import API from "@/API/Interceptor";
 
 const Signup = () => {
   const [seen, setSeen] = useState(false);
@@ -11,7 +12,7 @@ const Signup = () => {
   const [formData, setFormdData] = useState({
     email: "",
     password: "",
-    username: "",
+    userName: "",
     confirmPassword: "",
   });
 
@@ -20,6 +21,16 @@ const Signup = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const signupfunction = async (formData) => {
+    try {
+      const response = await API.post("/auth/signup", formData);
+      console.log(response);
+      
+    } catch (err) {
+      console.log("err", err.message);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -33,11 +44,12 @@ const Signup = () => {
       setFormdData({
         email: "",
         password: "",
-        username: "",
+        userName: "",
         confirmPassword: "",
       });
       setConfirm("");
       console.log(formData);
+      signupfunction(formData);
     }
   };
 
@@ -73,8 +85,8 @@ const Signup = () => {
             <div className="flex items-center justify-between">
               <label htmlFor="">UserName:</label>
               <input
-                name="username"
-                value={formData.username}
+                name="userName"
+                value={formData.userName}
                 onChange={(e) => handleChange(e)}
                 className="border-1 border-gray-400 rounded-sm p-2"
                 type="text"
