@@ -2,8 +2,9 @@ import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import Lottie from "lottie-react";
 import signup from "../../Lottie/signup.json";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import API from "@/API/Interceptor";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [seen, setSeen] = useState(false);
@@ -16,6 +17,8 @@ const Signup = () => {
     confirmPassword: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormdData({
       ...formData,
@@ -26,9 +29,13 @@ const Signup = () => {
   const signupfunction = async (formData) => {
     try {
       const response = await API.post("/auth/signup", formData);
+      if (response.status === 201) {
+        toast.success(response.data.message || "User created successfuly");
+        navigate("/signin");
+      }
       console.log(response);
-      
     } catch (err) {
+      toast.error(err.message || "Something went wrong");
       console.log("err", err.message);
     }
   };

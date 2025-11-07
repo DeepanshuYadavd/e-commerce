@@ -14,7 +14,7 @@ API.interceptors.request.use(
     console.log("Request sent");
     console.log("URL", config.baseURL + config.url);
     console.log("Method", config.method?.toUpperCase());
-    console.log("Data", config.data);
+    // console.log("Data", config.data);
 
     return config;
   },
@@ -29,7 +29,7 @@ API.interceptors.response.use(
   (response) => {
     console.log("Response Recieved");
     console.log("status", response.status);
-    console.log("data", response.data);
+    // console.log("data", response.data);
 
     return response;
   },

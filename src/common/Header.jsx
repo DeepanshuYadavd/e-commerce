@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Blocks, House, User, UserCheck } from "lucide-react";
+import { Blocks, House, ShoppingCart, User, UserCheck } from "lucide-react";
 
 import {
   NavigationMenu,
@@ -104,20 +104,20 @@ const Header = () => {
                 asChild
                 className={navigationMenuTriggerStyle()}
               >
-                <Link to="/docs">About</Link>
+                <Link to="/aboutus">About</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
 
             <NavigationMenuItem></NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Register</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[200px] gap-4">
+              <NavigationMenuTrigger>Profile</NavigationMenuTrigger>
+              <NavigationMenuContent className={` z-50`}>
+                <ul className="grid w-[200px] gap-4 ">
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
                         to="/signin"
-                        className="flex-row items-center gap-2"
+                        className="flex-row items-center gap-2 "
                       >
                         <User />
                         SignIn
@@ -127,6 +127,12 @@ const Header = () => {
                       <Link to="signup" className="flex-row items-center gap-2">
                         <UserCheck />
                         SignUp
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/" className="flex-row items-center gap-2">
+                        <ShoppingCart />
+                        Cart
                       </Link>
                     </NavigationMenuLink>
                   </li>
