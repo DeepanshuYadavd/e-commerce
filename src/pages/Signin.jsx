@@ -2,7 +2,9 @@ import { Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import Lottie from "lottie-react";
 import register from "../../Lottie/register.json";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginapi } from "@/API/Interceptor";
+import { useUser } from "@/context/AuthContext";
 
 const Signin = () => {
   const [seen, setSeen] = useState(false);
@@ -10,6 +12,8 @@ const Signin = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
+  const { login } = useUser();
 
   const handleChange = (e) => {
     setFormdData({
@@ -20,7 +24,8 @@ const Signin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    login(formData);
+    navigate("/");
     setFormdData({
       email: "",
       password: "",

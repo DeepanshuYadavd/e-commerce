@@ -50,4 +50,31 @@ API.interceptors.response.use(
   }
 );
 
+export const loginapi = async (formdata) => {
+  try {
+    const response = await API.post("/auth/signin", formdata);
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const logoutapi = async () => {
+  try {
+    const response = await API.get("/auth/logOut");
+    return response.data.message;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getProfile = async () => {
+  try {
+    const response = await API.get("/auth/profile");
+    return response.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export default API;

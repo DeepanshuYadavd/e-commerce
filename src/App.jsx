@@ -6,6 +6,7 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Aboutus from "./pages/Aboutus";
 import ProductDetail from "./pages/ProductDetail";
+import ProtectedRoute from "./common/authenticaton/ProtectedRoute";
 
 function App() {
   const router = createBrowserRouter([
@@ -30,8 +31,13 @@ function App() {
           element: <Aboutus />,
         },
         {
-          path: "/product/:id",
-          element: <ProductDetail />,
+          element: <ProtectedRoute />,
+          children: [
+            {
+              path: "/product/:id",
+              element: <ProductDetail />,
+            },
+          ],
         },
       ],
     },

@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Cpu, Laptop, Headphones, Gamepad2, Rocket } from "lucide-react";
+import { useUser } from "@/context/authContext";
 
 const Aboutus = () => {
+  const { user, setUser } = useUser();
+  const changeName = () => {
+    setUser("deep");
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-purple-900 text-white py-20 px-6">
       {/* Header */}
@@ -13,8 +18,11 @@ const Aboutus = () => {
         transition={{ duration: 0.6 }}
       >
         <h1 className="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-300">
-          About Gadget Galaxy ⚡
+          About Gadget Galaxy ⚡ {user}
         </h1>
+        <button className="border-2 py-2 px-4" onClick={() => changeName()}>
+          change name
+        </button>
         <p className="text-gray-300 max-w-3xl mx-auto text-lg">
           Welcome to{" "}
           <span className="text-purple-400 font-semibold">Gadget Galaxy</span>,
@@ -118,7 +126,17 @@ const Aboutus = () => {
           Meet Our Team 👨‍💻
         </h2>
         <div className="grid md:grid-cols-3 gap-8">
-          {["Tarun", "Deepanshu", "Anirudh", "Varinder", "Ishant", "Vipin", "Preetam" ,"Divyansh", "Aman"].map((name, i) => (
+          {[
+            "Tarun",
+            "Deepanshu",
+            "Anirudh",
+            "Varinder",
+            "Ishant",
+            "Vipin",
+            "Preetam",
+            "Divyansh",
+            "Aman",
+          ].map((name, i) => (
             <Card
               key={i}
               className="bg-gray-900/80 border border-purple-400/20 shadow-lg hover:scale-105 transition-transform duration-300"

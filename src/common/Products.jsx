@@ -2,14 +2,17 @@ import API from "@/API/Interceptor";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "@/redux/actions/product.action";
 
 const Products = () => {
-  const [productData, setProductData] = useState([]);
+  const productData = useSelector((state) => state.productReducer.data);
+
+  const dispatch = useDispatch();
 
   const getProduct = async () => {
     try {
-      const response = await API.get("/product/");
-      setProductData(response.data.data);
+      dispatch(fetchProducts());
     } catch (err) {
       console.log(err);
     }
@@ -58,7 +61,6 @@ const Products = () => {
                 <p className="text-lg font-bold text-purple-400 mb-4">
                   ₹{item.price}
                 </p>
-
                 <div className="flex justify-between items-center">
                   <Link to={`/product/${item._id}`}>
                     <button className="cursor-pointer bg-gradient-to-r from-purple-600 to-purple-800 text-white px-4 py-2 rounded-xl font-medium hover:from-purple-700 hover:to-purple-900 transition-all duration-200">

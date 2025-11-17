@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import { Blocks, House, ShoppingCart, User, UserCheck } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import {
   NavigationMenu,
@@ -11,6 +12,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import { useUser } from "@/context/authContext";
 
 const components = [
   {
@@ -62,6 +64,9 @@ function ListItem({ title, children, href, ...props }) {
   );
 }
 const Header = () => {
+  const navigate = useNavigate();
+  const { user, isAuthenication, logout } = useUser();
+
   return (
     <>
       <div className=" flex items-center justify-around p-4 bg-gradient-to-r from-gray-900 to-blue-200">
@@ -114,21 +119,44 @@ const Header = () => {
               <NavigationMenuContent className={` z-50`}>
                 <ul className="grid w-[200px] gap-4 ">
                   <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/signin"
-                        className="flex-row items-center gap-2 "
-                      >
-                        <User />
-                        SignIn
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="signup" className="flex-row items-center gap-2">
-                        <UserCheck />
-                        SignUp
-                      </Link>
-                    </NavigationMenuLink>
+                    {isAuthenication ? (
+                      <NavigationMenuLink asChild>
+                        <Link
+                          to="/signin"
+                          onClick={() => {
+                            logout();
+                            console.log("runnin")
+                          }}
+                          className="flex-row items-center gap-2 "
+                        >
+                          <User />
+                          Logout
+                        </Link>
+                      </NavigationMenuLink>
+                    ) : (
+                      <>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/signin"
+                            className="flex-row items-center gap-2 "
+                          >
+                            <User />
+                            SignIn
+                          </Link>
+                        </NavigationMenuLink>
+
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="signup"
+                            className="flex-row items-center gap-2"
+                          >
+                            <UserCheck />
+                            SignUp
+                          </Link>
+                        </NavigationMenuLink>
+                      </>
+                    )}
+
                     <NavigationMenuLink asChild>
                       <Link to="/" className="flex-row items-center gap-2">
                         <ShoppingCart />
@@ -139,6 +167,11 @@ const Header = () => {
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
+            {isAuthenication && (
+              <NavigationMenuItem className="rounded-xl py-1 px-2 ml-2 bg-gray-700">
+                Welcome back, {user}
+              </NavigationMenuItem>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
