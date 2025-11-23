@@ -22,10 +22,12 @@ const Signin = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(formData);
-    navigate("/");
+    const response = await login(formData);
+    if (response) {
+      navigate("/");
+    }
     setFormdData({
       email: "",
       password: "",

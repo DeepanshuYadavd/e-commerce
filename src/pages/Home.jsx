@@ -20,11 +20,6 @@ import { increment, incrementByValue } from "@/redux/slice/Counter.slice";
 
 const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const dispatch = useDispatch();
-
-  const data = useSelector((state) => state.counterReducer.value);
-
   const swiperDetails = [
     {
       title: "Toys",
@@ -64,15 +59,8 @@ const Home = () => {
     },
   ];
 
-  const handleClick = () => {
-    dispatch(incrementByValue(100));
-  };
-
   return (
     <>
-      <button onClick={handleClick}>increment</button>
-
-      <div>{data}</div>
       <div className="relative  flex flex-col md:flex-row items-center justify-center gap-16 px-10 py-20 bg-black text-white min-h-[95vh] overflow-hidden">
         {/* Animated gradient background */}
 

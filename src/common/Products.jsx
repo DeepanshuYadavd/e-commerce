@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "@/redux/actions/product.action";
+import { createCartItems } from "@/redux/actions/cart.action";
 
 const Products = () => {
   const productData = useSelector((state) => state.productReducer.data);
@@ -16,6 +17,10 @@ const Products = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleAddToCart = (productId) => {
+    dispatch(createCartItems({ productId }));
   };
 
   useEffect(() => {
@@ -67,9 +72,14 @@ const Products = () => {
                       View Product
                     </button>
                   </Link>
-                  <button className="cursor-pointer border border-purple-500 text-purple-300 px-4 py-2 rounded-xl font-medium hover:bg-purple-700 hover:text-white transition-all duration-200">
-                    Add to Cart
-                  </button>
+                  <div>
+                    <button
+                      onClick={() => handleAddToCart(item._id)}
+                      className="cursor-pointer border border-purple-500 text-purple-300 px-4 py-2 rounded-xl font-medium hover:bg-purple-700 hover:text-white transition-all duration-200"
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

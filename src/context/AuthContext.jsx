@@ -1,51 +1,50 @@
 import { getProfile, loginapi, logoutapi } from "@/API/Interceptor";
-import { createContext, useContext, useEffect, useState } from "react";
 
+import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 //  create context
 const authContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [logoutmsg, setlogoutMsg] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getUserProfile = async () => {
     try {
-      const userName = await getProfile();
-      setUser(userName);
+      const response = await getProfile();
+      if (response) {
+        setUser(response.data.data);
+      }
     } catch (err) {
       console.log(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     getUserProfile();
-  }, [logoutmsg]);
+  }, []);
 
   const login = async (formdata) => {
-    try {
-      const result = await loginapi(formdata);
-      setUser(result.name);
-    } catch (err) {
-      console.log(err);
+    const response = await loginapi(formdata);
+    console.log(response);
+    if (response?.status === 200) {
+      setUser(response.data.data.name);
     }
+    return response;
   };
-
   const logout = async () => {
-    try {
-      const result = await logoutapi();
-      setlogoutMsg(result);
-    } catch (err) {
-      console.log(err);
-    }
+    await logoutapi();
+    setUser(null);
   };
-
   const data = {
     user,
+    loading,
     setUser,
     login,
     logout,
-    logoutmsg,
     isAuthenication: !!user,
   };
 

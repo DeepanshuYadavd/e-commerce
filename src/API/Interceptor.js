@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const API = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL_API,
@@ -14,7 +15,6 @@ API.interceptors.request.use(
     console.log("Request sent");
     console.log("URL", config.baseURL + config.url);
     console.log("Method", config.method?.toUpperCase());
-    // console.log("Data", config.data);
 
     return config;
   },
@@ -24,56 +24,65 @@ API.interceptors.request.use(
   }
 );
 
-// response interceptor
+//  response
 API.interceptors.response.use(
-  (response) => {
-    console.log("Response Recieved");
-    console.log("status", response.status);
-    // console.log("data", response.data);
-
-    return response;
-  },
+  (response) => response,
   (error) => {
-    console.log("Response Error");
-    if (error.response) {
-      console.log("Status", error.response.status);
-      console.log("Message", error.response.data.message || error.message);
-      if (error.response.status === 401) {
-        console.warn("Unauthorized : Maybe session exppired or not logged in");
-      } else if (error.response.status === 500) {
-        console.log("Internal server error");
-      } else {
-        console.log("Network error", error.message);
-      }
+    const status = error.response?.status;
+
+    if (status === 401) {
+      // silent error for profile check
+      return Promise.reject({ status: 401, message: "Unauthorized" });
     }
-    return Promise.reject(error);
+
+    if (status === 400) {
+      // invalid password etc
+      return Promise.reject({
+        status: 400,
+        message: error.response.data.message,
+      });
+    }
+
+    if (status === 500) {
+      return Promise.reject({
+        status: 500,
+        message: "Internal Server Error",
+      });
+    }
+
+    return Promise.reject({
+      status: status || 0,
+      message: error.response?.data?.message || "Network Error",
+    });
   }
 );
 
 export const loginapi = async (formdata) => {
   try {
     const response = await API.post("/auth/signin", formdata);
-    return response.data.data;
+    toast.success(response.data.message);
+    return response;
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
   }
 };
 
 export const logoutapi = async () => {
   try {
     const response = await API.get("/auth/logOut");
-    return response.data.message;
+    toast.success(response.data.message);
+    return response;
   } catch (err) {
-    console.log(err);
+    toast.error(err.message);
   }
 };
 
 export const getProfile = async () => {
   try {
     const response = await API.get("/auth/profile");
-    return response.data.data;
+    return response;
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 

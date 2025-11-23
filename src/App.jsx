@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Aboutus from "./pages/Aboutus";
 import ProductDetail from "./pages/ProductDetail";
 import ProtectedRoute from "./common/authenticaton/ProtectedRoute";
+import Cart from "./pages/Cart";
 
 function App() {
   const router = createBrowserRouter([
@@ -36,6 +37,10 @@ function App() {
             {
               path: "/product/:id",
               element: <ProductDetail />,
+            },
+            {
+              path: "/cart",
+              element: <Cart />,
             },
           ],
         },

@@ -13,6 +13,8 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { useUser } from "@/context/authContext";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "@/redux/slice/cart.slice";
 
 const components = [
   {
@@ -65,11 +67,16 @@ function ListItem({ title, children, href, ...props }) {
 }
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { user, isAuthenication, logout } = useUser();
+  const cartData = useSelector((state) => state.cartReducer.data);
+
+  const cart = cartData;
+  const items = cart?.cartItem || [];
 
   return (
     <>
-      <div className=" flex items-center justify-around p-4 bg-gradient-to-r from-gray-900 to-blue-200">
+      <div className=" sticky top-0 z-[999] flex items-center justify-around p-4 bg-gradient-to-r from-gray-900 to-blue-200">
         {/*  logo */}
         <Link to="/">
           <div className="border-1 p-2 rounded-sm border-purple-300 gap-2 flex ">
@@ -115,7 +122,16 @@ const Header = () => {
 
             <NavigationMenuItem></NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Profile</NavigationMenuTrigger>
+              <NavigationMenuTrigger className="relative">
+                <div className="flex items-center gap-1">
+                  Profile
+                  {items.length > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                      {items.length}
+                    </span>
+                  )}
+                </div>
+              </NavigationMenuTrigger>
               <NavigationMenuContent className={` z-50`}>
                 <ul className="grid w-[200px] gap-4 ">
                   <li>
@@ -125,7 +141,7 @@ const Header = () => {
                           to="/signin"
                           onClick={() => {
                             logout();
-                            console.log("runnin")
+                            dispatch(clearCart());
                           }}
                           className="flex-row items-center gap-2 "
                         >
@@ -158,9 +174,17 @@ const Header = () => {
                     )}
 
                     <NavigationMenuLink asChild>
-                      <Link to="/" className="flex-row items-center gap-2">
+                      <Link
+                        to="/cart"
+                        className="flex-row items-center gap-2 relative"
+                      >
                         <ShoppingCart />
                         Cart
+                        {items.length > 0 && (
+                          <span className="absolute -top-0 right-[7rem] bg-red-600 text-white text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                            {items.length}
+                          </span>
+                        )}
                       </Link>
                     </NavigationMenuLink>
                   </li>
