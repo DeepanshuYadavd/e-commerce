@@ -7,7 +7,6 @@ export const createCartItems = createAsyncThunk(
   "cart/createCarItems",
   async ({ productId, quantity }, thunkAPI) => {
     try {
-      console.log(productId);
       const res = await API.post("/cart/add", {
         productId,
         quantity,

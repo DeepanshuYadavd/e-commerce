@@ -15,38 +15,40 @@ import {
 import { useUser } from "@/context/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "@/redux/slice/cart.slice";
+import { fetchCartDetails } from "@/redux/actions/cart.action";
+import { useEffect } from "react";
 
 const components = [
   {
     title: "Toys",
-    href: "/docs/primitives/alert-dialog",
+    href: "/products?category=toys",
     description:
       "You can find Premium quality toys from Gadget Shop and make your collections perfect.",
   },
   {
     title: "Books",
-    href: "/docs/primitives/hover-card",
+    href: "/products?category=books",
     description: "For Book Lovers, we have every variety of books...",
   },
   {
     title: "Laptops",
-    href: "/docs/primitives/progress",
+    href: "/products?category=laptop",
     description:
       "All types of Latops you can explore and purchase. checkout now",
   },
   {
     title: "Mobile Phones",
-    href: "/docs/primitives/scroll-area",
+    href: "/products?category=mobilePhones",
     description: "I phone Lover or Android lover?.... whatever explore here.",
   },
   {
     title: "Tablets",
-    href: "/docs/primitives/tabs",
+    href: "/products?category=tablets",
     description: "Explore the variety of Tablets in Gadget Shop",
   },
   {
     title: "Others",
-    href: "/docs/primitives/tooltip",
+    href: "/products?category=others",
     description: "Miscellaneous gadgets are there...",
   },
 ];
@@ -55,7 +57,7 @@ function ListItem({ title, children, href, ...props }) {
   return (
     <li {...props}>
       <NavigationMenuLink asChild>
-        <Link href={href}>
+        <Link to={href}>
           <div className="text-sm leading-none font-medium">{title}</div>
           <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
             {children}
@@ -69,6 +71,10 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user, isAuthenication, logout } = useUser();
+
+  useEffect(() => {
+    dispatch(fetchCartDetails());
+  }, [user]);
   const cartData = useSelector((state) => state.cartReducer.data);
 
   const cart = cartData;
@@ -76,7 +82,7 @@ const Header = () => {
 
   return (
     <>
-      <div className=" sticky top-0 z-[999] flex items-center justify-around p-4 bg-gradient-to-r from-gray-900 to-blue-200">
+      <div className="sticky top-0 z-[999] flex items-center justify-around p-4 bg-gradient-to-r from-gray-900 to-blue-200">
         {/*  logo */}
         <Link to="/">
           <div className="border-1 p-2 rounded-sm border-purple-300 gap-2 flex ">

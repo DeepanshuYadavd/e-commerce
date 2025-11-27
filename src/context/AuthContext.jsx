@@ -29,7 +29,6 @@ export const UserProvider = ({ children }) => {
 
   const login = async (formdata) => {
     const response = await loginapi(formdata);
-    console.log(response);
     if (response?.status === 200) {
       setUser(response.data.data.name);
     }
