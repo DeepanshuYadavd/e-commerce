@@ -143,9 +143,11 @@ const Cart = () => {
                 <span>₹{cart?.cartPrice || 0}</span>
               </div>
 
-              <button className="cursor-pointer mt-6 w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold py-3 rounded-xl shadow-xl tracking-wide transition-all duration-200">
-                Checkout
-              </button>
+              <Link to="/order">
+                <button className="cursor-pointer mt-6 w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold py-3 rounded-xl shadow-xl tracking-wide transition-all duration-200">
+                  Checkout
+                </button>
+              </Link>
             </div>
           </div>
         </div>

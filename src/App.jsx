@@ -9,6 +9,7 @@ import ProductDetail from "./pages/ProductDetail";
 import ProtectedRoute from "./common/authenticaton/ProtectedRoute";
 import Cart from "./pages/Cart";
 import ProductCategory from "./pages/ProductCategory";
+import CheckoutSteps from "./pages/checkoutSteps/Index";
 
 function App() {
   const router = createBrowserRouter([
@@ -46,6 +47,10 @@ function App() {
             {
               path: "/cart",
               element: <Cart />,
+            },
+            {
+              path: "/order",
+              element: <CheckoutSteps />,
             },
           ],
         },
