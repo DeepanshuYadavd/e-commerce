@@ -19,10 +19,12 @@ const Stepper = ({ steps, currentStep, onStepChange }) => {
 
               {/* Circle */}
               <button
-                onClick={() => onStepChange(index)}
+                onClick={() => {
+                  if (index !== 2) onStepChange(index);
+                }}
                 className={`
                   w-12 h-12 flex items-center justify-center rounded-full font-semibold text-sm 
-                  relative z-10 transition cursor-pointer
+                  relative z-10 transition 
                   ${
                     currentStep === index
                       ? "bg-purple-600 text-white scale-110 shadow-lg"
@@ -30,6 +32,7 @@ const Stepper = ({ steps, currentStep, onStepChange }) => {
                       ? "bg-green-500 text-white"
                       : "bg-gray-300 text-gray-700"
                   }
+                  ${index !== 2 ? "cursor-pointer" : ""}
                 `}
               >
                 {index + 1}

@@ -1,6 +1,13 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Blocks, House, ShoppingCart, User, UserCheck } from "lucide-react";
+import {
+  Blocks,
+  House,
+  Logs,
+  ShoppingCart,
+  User,
+  UserCheck,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -72,13 +79,13 @@ const Header = () => {
   const dispatch = useDispatch();
   const { user, isAuthenication, logout } = useUser();
 
+  const cartData = useSelector((state) => state.cartReducer.data);
+  const cart = cartData;
+  const items = cart?.cartItem || [];
+
   useEffect(() => {
     dispatch(fetchCartDetails());
   }, [user]);
-  const cartData = useSelector((state) => state.cartReducer.data);
-
-  const cart = cartData;
-  const items = cart?.cartItem || [];
 
   return (
     <>
@@ -142,19 +149,31 @@ const Header = () => {
                 <ul className="grid w-[200px] gap-4 ">
                   <li>
                     {isAuthenication ? (
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to="/signin"
-                          onClick={() => {
-                            logout();
-                            dispatch(clearCart());
-                          }}
-                          className="flex-row items-center gap-2 "
-                        >
-                          <User />
-                          Logout
-                        </Link>
-                      </NavigationMenuLink>
+                      <>
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/signin"
+                            onClick={() => {
+                              logout();
+                              dispatch(clearCart());
+                            }}
+                            className="flex-row items-center gap-2 "
+                          >
+                            <User />
+                            Logout
+                          </Link>
+                        </NavigationMenuLink>
+
+                        <NavigationMenuLink asChild>
+                          <Link
+                            to="/my-orders"
+                            className="flex-row items-center gap-2 "
+                          >
+                            <Logs />
+                            My orders
+                          </Link>
+                        </NavigationMenuLink>
+                      </>
                     ) : (
                       <>
                         <NavigationMenuLink asChild>
@@ -198,9 +217,11 @@ const Header = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             {isAuthenication && (
-              <NavigationMenuItem className="rounded-xl py-1 px-2 ml-2 bg-gray-700">
-                Welcome back, {user}
-              </NavigationMenuItem>
+              <>
+                <NavigationMenuItem className="rounded-xl py-1 px-2 ml-2 bg-gray-700">
+                  Welcome back, {user}
+                </NavigationMenuItem>
+              </>
             )}
           </NavigationMenuList>
         </NavigationMenu>

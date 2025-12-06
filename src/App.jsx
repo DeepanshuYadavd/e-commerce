@@ -10,6 +10,7 @@ import ProtectedRoute from "./common/authenticaton/ProtectedRoute";
 import Cart from "./pages/Cart";
 import ProductCategory from "./pages/ProductCategory";
 import CheckoutSteps from "./pages/checkoutSteps/Index";
+import Orders from "./pages/Orders";
 
 function App() {
   const router = createBrowserRouter([
@@ -51,6 +52,10 @@ function App() {
             {
               path: "/order",
               element: <CheckoutSteps />,
+            },
+            {
+              path: "/my-orders",
+              element: <Orders />,
             },
           ],
         },

@@ -21,6 +21,7 @@ const Products = () => {
 
   const handleAddToCart = (productId) => {
     dispatch(createCartItems({ productId }));
+  
   };
 
   useEffect(() => {

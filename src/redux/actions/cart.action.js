@@ -12,6 +12,7 @@ export const createCartItems = createAsyncThunk(
         quantity,
       });
       toast.success("Cart added");
+      await thunkAPI.dispatch(fetchCartDetails());
       return res.data.data; // return updated cart
     } catch (error) {
       toast.error(error.response?.data?.message || "create failed");

@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { createCartItems } from "@/redux/actions/cart.action";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
@@ -32,7 +31,7 @@ const ProductCategory = () => {
       <div className="p-3 py-[4rem]">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 animate-gradient-x">
-            {category.charAt(0).toUpperCase() + category.slice(1)}
+            {category?.charAt(0).toUpperCase() + category?.slice(1)}
           </h1>
           <div className="mt-2 h-1 w-32 bg-gradient-to-r from-purple-400 to-pink-500 mx-auto rounded-full shadow-lg"></div>
           <p className="text-gray-400 mt-3">
