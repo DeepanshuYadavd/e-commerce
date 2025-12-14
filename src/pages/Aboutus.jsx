@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Cpu, Laptop, Headphones, Gamepad2, Rocket } from "lucide-react";
-import { useUser } from "@/context/authContext";
+import { useUser } from "@/context/AuthContext.jsx";
 
 const Aboutus = () => {
   const { user, setUser } = useUser();
