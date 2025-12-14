@@ -19,7 +19,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { useUser } from "@/context/authContext";
+import { useUser } from "@/context/AuthContext.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "@/redux/slice/cart.slice";
 import { fetchCartDetails } from "@/redux/actions/cart.action";
