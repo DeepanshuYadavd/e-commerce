@@ -58,6 +58,11 @@ const components = [
     href: "/products?category=others",
     description: "Miscellaneous gadgets are there...",
   },
+  {
+    title: "All",
+    href: "/products?category=all",
+    description: "Miscellaneous gadgets are there...",
+  },
 ];
 
 function ListItem({ title, children, href, ...props }) {
